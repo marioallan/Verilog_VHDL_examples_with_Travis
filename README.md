@@ -17,65 +17,17 @@ Configuração da ferramenta de automatização de testes "Travis" no Github. O 
 2- Ir na opção "My Repositories", escolher o repositório que vai usar o travis e ativar essa função a partir do botão.
 
 ---
-3- Ir no repositório e adicionar o arquivo script ".travis.yml".
+3- Ir no repositório e adicionar o arquivo script ".travis.yml" (Olhar como ficou os comandos nesse arquivo no repositório).
+
 Nesse script deve conter: 
 
 Os comandos para:
 
-* Iniciar uma maquina virtual ou docker.
-** Nesse contexto foi usado o comando para instalar uma máquina virtual linux:
-
-sudo: enabled
-dist: trusty
-
-* Instalar a linguagem de programação que vai executar os testes.
-** Nesse contexto foi usado o comando para instalar o "python".
-
-python:
-  - '3.6'
-
-* Instalar via "python" as dependências necessárias para executar os projetos feitos em Verilog e VHDL.
-
-termcolor
-vunit
-vunit_hdl
-requests
-joblib
-subprocess.run
-pymongo
-datetime
-pymongo
-
- ** Nesse exemplo os comandos para instalar as dependencias foram reunidas no arquivo "requeriments.txt".
-
-* Instalar o Modelsim e suas dependências, no qual irá executar os testes dos projetos de descrição de hardware em Verilog e VHDL. Além de configurar suas variáveis de inicialização.
-
- // dependencias modelsim 
-  - sudo dpkg --add-architecture i386
-  - sudo apt-get update
-  - sudo apt-get install build-essential
-  - sudo apt-get install gcc-multilib g++-multilib lib32z1 lib32stdc++6 lib32gcc1 expat:i386 fontconfig:i386 libfreetype6:i386 libexpat1:i386 libc6:i386 libgtk-3-0:i386 libcanberra0:i386 libpng12-0:i386 libice6:i386 libsm6:i386 libncurses5:i386 zlib1g:i386 libx11-6:i386 libxau6:i386 libxdmcp6:i386 libxext6:i386 libxft2:i386 libxrender1:i386 libxt6:i386 libxtst6:i386
-
-// modelSim download
-  - wget http://download.altera.com/akdlm/software/acdsinst/17.1std/590/ib_installers/ModelSimSetup-17.1.0.590-linux.run -O modelsim.run
-
-// Modelsim install
-  - chmod +x modelsim.run
-  - ./modelsim.run --mode unattended --accept_eula 1 --installdir $HOME
-
-// Corrigi bug modelsim com kernel 4
-  - sed -i '209 a\        4.[0-9]*)             vco="linux" ;;' $HOME/modelsim_ase/vco 
-
-// Define o modelsim como simulador para o VUNIT
-  - export VUNIT_SIMULATOR=modelsim
-  - export VUNIT_MODELSIM_PATH=$HOME/modelsim_ase/bin/
-
-* O caminho dos arquivos de exemplos em Verilog e VHDL que o mesmo vai executar.
-
-  - python3 Verilog/exemplos_system_verilog/uart/run.py
-  - python3 Verilog/exemplos_system_verilog/and/run.py
-  - python3 Verilog/exemplos_system_verilog/dut/run.py
-  - python3 VHDL/exemplos_vhdl/run.py
+- Iniciar uma maquina virtual ou docker. (Escolhido o comando para instalar uma máquina virtual linux)
+- Instalar a linguagem de programação que vai executar os testes. (Escolhido o comando para instalar o "python".)
+- Instalar via "python" as dependências necessárias para executar os projetos feitos em Verilog e VHDL. (Nesse exemplo os comandos para instalar as dependencias foram reunidas no arquivo "requeriments.txt".
+- Instalar o Modelsim e suas dependências, no qual irá executar os testes dos projetos de descrição de hardware em Verilog e VHDL. Além de configurar suas variáveis de inicialização.
+- O caminho dos arquivos de exemplos em Verilog e VHDL que o mesmo vai executar.
 
 ---
 4- Com tudo configurado, realize um "commit" no repositório do github, mas se for localmente, realize um "commit" seguido de um "push" no repositório para que o processo do teste automatico pelo travis se inicie.  
