@@ -27,7 +27,8 @@ Os comandos para:
 - Instalar a linguagem de programação que vai executar os testes. (Escolhido o comando para instalar o "python".)
 - Instalar via "python" as dependências necessárias para executar os projetos feitos em Verilog e VHDL. (Nesse exemplo os comandos para instalar as dependencias foram reunidas no arquivo "requeriments.txt".
 - Instalar o Modelsim e suas dependências, no qual irá executar os testes dos projetos de descrição de hardware em Verilog e VHDL. Além de configurar suas variáveis de inicialização.
-- O caminho dos arquivos de exemplos em Verilog e VHDL que o mesmo vai executar.
+E os caminhos:
+- Dos arquivos de exemplos em Verilog e VHDL que o mesmo vai executar.
 
 ---
 4- Com tudo configurado, realize um "commit" no repositório do github, mas se for localmente, realize um "commit" seguido de um "push" no repositório para que o processo do teste automatico pelo travis se inicie.  
