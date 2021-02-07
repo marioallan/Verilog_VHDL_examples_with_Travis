@@ -2,12 +2,12 @@
 ---
 Configuração da ferramenta de automatização de testes "Travis" no Github. O Travis é um sistema de integração contínua que executa de forma automática através de uma maquina virtual ou Docker (Uma forma de virtualizar aplicações) na nuvem, os testes de projetos adicionados no github, que nesse contexto são em Verilog e VHDL apartir do simulador de projetos de descrição de hardware Modelsim.
 
-# O repositório utilizado nesse exemplo 
+## O repositório utilizado nesse exemplo 
 ---
 (https://github.com/marioallan/Verilog_VHDL_examples_with_Travis)
 
 ---
-# PASSOS:
+## PASSOS:
 ---
 1- Se logar no site do Travis (https://travis-ci.org/) com sua conta do Github.
 
@@ -38,69 +38,80 @@ E os caminhos:
 Pelo site do travis e visto com mais detalhes o processo de teste em andamento. e depois de finalizado os detalhes, se o teste foi bem sucedido ou se falhou. 
 
 ---
-# Configuração dos arquivos de testbenchs em Verilog (.sv) e VHDL(.vhd) usando a biblioteca "Vunit". (Olhar os exemplos do repositório para facilitar o entendimento)
+## Configuração dos arquivos de testbenchs em Verilog (.sv) e VHDL(.vhd) usando a biblioteca "Vunit". (Olhar os exemplos do repositório para facilitar o entendimento)
 
 OBS: (Nos exemplos em Verilog, cada exemplo foi adicionado em uma pasta "src" e "test". Já no exemplo em VDHL, todos os exemplos foram colocados em uma única pasta "src" e "test" respectivamente).
 
-# Em Verilog
+## Em Verilog
 
 OBS:(Os comandos adicionados do "Vunit" em verilog só funcionam com a extensão ".sv")
 
 No arquivo de testbench adicionar:
 
 ---
-No topo do arquivo: `include "vunit_defines.svh"
+No topo do arquivo: 
+
+````
+`include "vunit_defines.svh"
+````
+
 No final do arquivo antes do "endmodule":
 
- `TEST_SUITE begin
-	
-     `TEST_CASE("Test that pass") begin
+````
+`TEST_SUITE begin
+
+    `TEST_CASE("Test that pass") begin
        @(Variavel_de_saída);
        `CHECK_EQUAL(Variavel_de_saída, 0);
-      end
+    end
 		
-      `TEST_CASE("Test that fail") begin
+   `TEST_CASE("Test that fail") begin
          @(Variavel_de_saída);
          `CHECK_EQUAL(Variavel_de_saída, 1);
-      end
+    end
+end
 
-  end
-
+````
 ---
-# Em VHDL
+## Em VHDL
 
 No arquivo de testbench adicionar:
 
 ---
 Após as declarações do "LIBRARY" e "USE" os comandos:
 
+```
 library vunit_lib;
 context vunit_lib.vunit_context;
-
+```
 ---
 NO campo da ENTITY o comando:
 
+```
 generic (runner_cfg : string);
+```
 
 Exemplo:
 
-
+```
 entity nome_da_entidade is
   generic (runner_cfg : string);
 end entity;
+```
 
 ---
 Após a linha com o comando "main":
 
+```
 test_runner_setup(runner, runner_cfg);
 
 assert(variavel_de_saida = '30')  report "Falha em teste: Resultado != 30" severity error;
 	
 test_runner_cleanup(runner); -- Simulacao acaba aqui
-
+```
 
 ---
-# REFERÊNCIAS:
+## REFERÊNCIAS:
 
 - https://insper.github.io/Z01.1/A-Ambiente-Lab-1/#travis-ci
 - https://insper.github.io/Z01.1/LogiComb-Lab-2/
