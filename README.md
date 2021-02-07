@@ -84,12 +84,10 @@ generic (runner_cfg : string);
 
 Exemplo:
 
-================================
-entity nome_da_entidade is\\
-  generic (runner_cfg : string);\\
-end entity;\\
 
-================================
+entity nome_da_entidade is
+  generic (runner_cfg : string);
+end entity;
 
 ---
 Após a linha com o comando "main":
